@@ -1,8 +1,119 @@
+{%load static%}
 <html>
     <head>
         <title>ACCOUNT</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     </head>
     <body>
-        <h1>LOGGED IN</h1>
+        <nav class="navbar navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+              <img src = "{% static "books/logo.png" %}"  width="30" height="30" class="d-inline-block align-top" alt="Library">
+                BORROW-ON-LINE
+            </a>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                  <a class="nav-link" href="#"></a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'logout_view'%}">Logout</a>
+                </li>
+            </ul> 
+        </nav>
+        <div class="input-group mb-3">
+          
+          <div class="input-group">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="myInput" onkeyup="myFunction()">
+            <select class="custom-select" id="inputGroupSelect01">
+                <option selected value = "ISBN">ISBN</option>
+                <option value="1" value="Title">Title</option>
+                <option value="2" value="Author">Author</option>
+                <option value="3" value="Year">Year</option>
+              </select>
+          </div>
+        <table class="table" id="myTable">
+            <thead>
+              <tr>
+                <th scope="col">ISBN</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Year</th>
+              </tr>
+            </thead>
+            <tbody>
+                {%for book in books%}
+                <tr>
+                    <td><a href="">{{book.isbn}}</a></td>
+                    <td>{{book.title}}</td>  
+                    <td>{{book.author}}</td>
+                    <td>{{book.year}}</td>
+                </tr>
+                {%endfor%}
+            </tbody>
+          </table>
+          <script>
+            function myFunction() {
+              // Declare variables
+              var input, filter, table, tr, td, i, txtValue;
+              input = document.getElementById("myInput");
+              filter = input.value.toUpperCase();
+              table = document.getElementById("myTable");
+              tr = table.getElementsByTagName("tr");
+              var selection = document.querySelector('select').value
+              // Loop through all table rows, and hide those who don't match the search query
+              if (selection == "ISBN"){
+              for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+              }
+              else if(selection == "Title"){
+                for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+              }
+              else if(selection == "Author"){
+                for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[2];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+              }
+              else if(selection = "Year"){
+                for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[3];
+                if (td) {
+                  txtValue = td.textContent || td.innerText;
+                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                  } else {
+                    tr[i].style.display = "none";
+                  }
+                }
+              }
+              }
+            }
+            
+            </script>
     </body>
 </html>

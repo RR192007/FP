@@ -22,7 +22,8 @@ def checkloginstatus(request):
     else:
         request.session['name'] = request.user.first_name
         context = {
-            "user": request.user.first_name
+            "user": request.user.first_name,
+            "books": Book.objects.all()
         }
         return render(request, "books/account.html", context)
 
@@ -38,7 +39,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return render(request, "books/index.html", {"message": "Logged out."})
+    return render(request, "books/index.html", {"message": "You are logged out."})
 
 def register(request):
     email = request.POST['email']
