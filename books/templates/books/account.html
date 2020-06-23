@@ -8,7 +8,7 @@
         <nav class="navbar navbar-light bg-light">
             <a class="navbar-brand" href="#">
               <img src = "{% static "books/logo.png" %}"  width="30" height="30" class="d-inline-block align-top" alt="Library">
-                BORROW-ON-LINE
+                SELF CHECKOUT
             </a>
             <ul class="nav justify-content-end">
                 <li class="nav-item">
@@ -22,13 +22,16 @@
         <div class="input-group mb-3">
           
           <div class="input-group">
-            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="myInput" onkeyup="myFunction()">
-            <select class="custom-select" id="inputGroupSelect01">
-                <option selected value = "ISBN">ISBN</option>
-                <option value="1" value="Title">Title</option>
-                <option value="2" value="Author">Author</option>
-                <option value="3" value="Year">Year</option>
-              </select>
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="myInput" onkeyup="myFunction()" placeholder="Search by ISBN">
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="title" onkeyup="searchtitle()" placeholder="Search by title">
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="author" onkeyup="author()" placeholder="Search by author">
+          </div>
+          <div class="input-group">
+            <input type="text" class="form-control" aria-label="Text input with dropdown button" id="year" onkeyup="year()" placeholder="Search by year">
           </div>
         <table class="table" id="myTable">
             <thead>
@@ -41,8 +44,8 @@
             </thead>
             <tbody>
                 {%for book in books%}
-                <tr>
-                    <td><a href="">{{book.isbn}}</a></td>
+                <tr onclick="borrow(this)">
+                    <td>{{book.isbn}}</td>
                     <td>{{book.title}}</td>  
                     <td>{{book.author}}</td>
                     <td>{{book.year}}</td>
@@ -58,11 +61,10 @@
               filter = input.value.toUpperCase();
               table = document.getElementById("myTable");
               tr = table.getElementsByTagName("tr");
-              var selection = document.querySelector('select').value
+            
               // Loop through all table rows, and hide those who don't match the search query
-              if (selection == "ISBN"){
               for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
+                td = tr[i].getElementsByTagName("td")[0];
                 if (td) {
                   txtValue = td.textContent || td.innerText;
                   if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -71,49 +73,74 @@
                     tr[i].style.display = "none";
                   }
                 }
-              }
-              }
-              else if(selection == "Title"){
-                for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[1];
-                if (td) {
-                  txtValue = td.textContent || td.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                }
-              }
-              }
-              else if(selection == "Author"){
-                for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[2];
-                if (td) {
-                  txtValue = td.textContent || td.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                }
-              }
-              }
-              else if(selection = "Year"){
-                for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[3];
-                if (td) {
-                  txtValue = td.textContent || td.innerText;
-                  if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                  } else {
-                    tr[i].style.display = "none";
-                  }
-                }
-              }
               }
             }
-            
+function author() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("author");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[2];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+function year() {
+  // Declare variables
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("year");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[3];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+function searchtitle() {
+    // Declare variables
+    var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("title");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+
+  // Loop through all table rows, and hide those who don't match the search query
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[1];
+    if (td) {
+      txtValue = td.textContent || td.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+function borrow(x) {
+  alert("Row index is: " + x.rowIndex);
+}
             </script>
     </body>
 </html>
