@@ -1,0 +1,36 @@
+<html>
+    <head>
+        <title>{{title}}</title>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    </head>
+    <body>
+        <div class="card text-center">
+            <div class="card-header">
+              BOOK DETAILS
+            </div>
+            <div class="card-body">
+              <h5 class="card-title">{{title}}</h5>
+              <p class="card-text">ID: {{id}}</p>
+              <p class="card-text">ISBN: {{isbn}}</p>
+              <p class="card-text">TITLE: {{title}}</p>
+              <p class="card-text">AUTHOR: {{author}}</p>
+              <p class="card-text">YEAR: {{year}}</p>
+              <a href="{%url 'borrow' id%}" class="btn btn-primary">BORROW THIS BOOK</a>
+            </div>
+            <div class="card-footer text-muted">
+              Click checkout to get your receipt!<br>
+              <span>Borrowed by {{numberoftimes}} people</span>
+            </div>
+          </div>
+      <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          span = document.querySelector('span').textContent
+          if (span == "Borrowed by 0 people") {
+            document.querySelector('span').innerHTML = "Be the first one to borrow this book"
+          } else {
+            span = span
+          }
+        });
+      </script>
+    </body>
+</html>

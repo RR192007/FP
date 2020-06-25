@@ -3,6 +3,8 @@
     <head>
         <title>ACCOUNT</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     </head>
     <body>
         <nav class="navbar navbar-light bg-light">
@@ -36,6 +38,7 @@
         <table class="table" id="myTable">
             <thead>
               <tr>
+                <th scope="col">#</th>
                 <th scope="col">ISBN</th>
                 <th scope="col">Title</th>
                 <th scope="col">Author</th>
@@ -44,7 +47,8 @@
             </thead>
             <tbody>
                 {%for book in books%}
-                <tr onclick="borrow(this)">
+                <tr>
+                    <td><a href="{%url 'singlebook' book.id%}">{{book.id}}</td>
                     <td>{{book.isbn}}</td>
                     <td>{{book.title}}</td>  
                     <td>{{book.author}}</td>
@@ -64,7 +68,7 @@
             
               // Loop through all table rows, and hide those who don't match the search query
               for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0];
+                td = tr[i].getElementsByTagName("td")[1];
                 if (td) {
                   txtValue = td.textContent || td.innerText;
                   if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -85,7 +89,7 @@ function author() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[2];
+    td = tr[i].getElementsByTagName("td")[3];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -106,7 +110,7 @@ function year() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[3];
+    td = tr[i].getElementsByTagName("td")[4];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -127,7 +131,7 @@ function searchtitle() {
 
   // Loop through all table rows, and hide those who don't match the search query
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[1];
+    td = tr[i].getElementsByTagName("td")[2];
     if (td) {
       txtValue = td.textContent || td.innerText;
       if (txtValue.toUpperCase().indexOf(filter) > -1) {
@@ -138,9 +142,7 @@ function searchtitle() {
     }
   }
 }
-function borrow(x) {
-  alert("Row index is: " + x.rowIndex);
-}
             </script>
+
     </body>
 </html>

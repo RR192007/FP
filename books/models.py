@@ -26,7 +26,7 @@ class Book(models.Model):
         return self.title
 
 class BorrowedBooks(models.Model):
-    book_isbn = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="bookisbn")
-    paid = models.BooleanField()
+    id_book = models.ForeignKey(Book, on_delete=models.CASCADE, related_name="bookid", default = '')
+    member_email = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="username", default = '')
     dateofborrowing = models.DateField()
     returndate = models.DateField()
